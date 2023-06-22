@@ -1,0 +1,147 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6c20vr33dnfa"]
+
+[ext_resource type="Script" path="res://scenes/Player1.gd" id="1_5b2gj"]
+[ext_resource type="Texture2D" uid="uid://dud1680uyoek8" path="res://icon.svg" id="1_o2we7"]
+[ext_resource type="Script" path="res://scenes/Player2.gd" id="3_dj88f"]
+[ext_resource type="Script" path="res://scenes/ball.gd" id="4_ar57m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ji0f"]
+size = Vector2(1169, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5cwy"]
+size = Vector2(13, 671)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4nyb"]
+size = Vector2(32.75, 664)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dumt"]
+size = Vector2(1190.5, 20)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ko28s"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mo1a"]
+size = Vector2(128, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0biy"]
+size = Vector2(30, 28)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gg8lb"]
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_40rvc"]
+specular_color = Color(0.576471, 0.188235, 0.254902, 1)
+specular_shininess = 0.0
+
+[sub_resource type="Gradient" id="Gradient_1srer"]
+offsets = PackedFloat32Array(0.309735, 0.530973, 0.761062, 1)
+colors = PackedColorArray(0.663717, 0.663717, 0.663717, 1, 0, 0, 0, 1, 0.761062, 0.761062, 0.761062, 1, 1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_uhu2n"]
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.966667, 128.834), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Scene1" type="Node2D"]
+
+[node name="ground" type="StaticBody2D" parent="."]
+
+[node name="collisionUp" type="CollisionShape2D" parent="ground"]
+position = Vector2(574.5, 0)
+shape = SubResource("RectangleShape2D_7ji0f")
+
+[node name="collisionLeft" type="CollisionShape2D" parent="ground"]
+position = Vector2(-3.5, 325.5)
+shape = SubResource("RectangleShape2D_f5cwy")
+
+[node name="collisionRight" type="CollisionShape2D" parent="ground"]
+position = Vector2(1171.63, 317)
+shape = SubResource("RectangleShape2D_b4nyb")
+
+[node name="collisionDown" type="CollisionShape2D" parent="ground"]
+position = Vector2(594.75, 666)
+shape = SubResource("RectangleShape2D_5dumt")
+
+[node name="Player1" type="StaticBody2D" parent="."]
+modulate = Color(0.447059, 0.156863, 0.0862745, 1)
+self_modulate = Color(0.423529, 0.192157, 0.141176, 1)
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_ko28s")
+position = Vector2(135, 543)
+script = ExtResource("1_5b2gj")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_7mo1a")
+
+[node name="Icon" type="Sprite2D" parent="Player1/CollisionShape2D"]
+position = Vector2(1, -1)
+scale = Vector2(1, 0.0917968)
+texture = ExtResource("1_o2we7")
+
+[node name="Player2" type="StaticBody2D" parent="."]
+modulate = Color(0.447059, 0.156863, 0.0862745, 1)
+self_modulate = Color(0.423529, 0.192157, 0.141176, 1)
+texture_filter = 2
+material = SubResource("CanvasItemMaterial_ko28s")
+position = Vector2(183, 93)
+script = ExtResource("3_dj88f")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_7mo1a")
+
+[node name="Icon" type="Sprite2D" parent="Player2/CollisionShape2D"]
+position = Vector2(1, -1)
+scale = Vector2(1, 0.0917968)
+texture = ExtResource("1_o2we7")
+
+[node name="ball" type="StaticBody2D" parent="."]
+position = Vector2(43, 77)
+script = ExtResource("4_ar57m")
+metadata/_edit_group_ = true
+
+[node name="collisionBall" type="CollisionShape2D" parent="ball"]
+shape = SubResource("RectangleShape2D_r0biy")
+
+[node name="Icon" type="Sprite2D" parent="ball/collisionBall"]
+position = Vector2(0.999985, 1)
+scale = Vector2(0.265625, 0.242187)
+texture = ExtResource("1_o2we7")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ball/collisionBall/Icon"]
+material = SubResource("CanvasItemMaterial_gg8lb")
+position = Vector2(-3.76465, -4.12903)
+scale = Vector2(3.76471, 4.12903)
+amount = 22
+lifetime = 2.0
+speed_scale = 4.03
+explosiveness = 0.13
+randomness = 0.84
+lifetime_randomness = 0.58
+texture = SubResource("CanvasTexture_40rvc")
+emission_shape = 1
+emission_sphere_radius = 20.0
+particle_flag_align_y = true
+direction = Vector2(-0.5, -0.5)
+spread = 180.0
+gravity = Vector2(0, 3)
+angular_velocity_min = 486.67
+angular_velocity_max = 486.67
+linear_accel_min = 21.62
+linear_accel_max = 21.62
+scale_amount_max = 10.0
+color = Color(0.905882, 0.556863, 0.25098, 1)
+color_ramp = SubResource("Gradient_1srer")
+anim_speed_min = 31.14
+anim_speed_max = 69.19
+anim_speed_curve = SubResource("Curve_uhu2n")
